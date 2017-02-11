@@ -1,5 +1,7 @@
 <?php
 
+require_once 'base.test';
+
 class DOCExportViewsDataExportTests extends ViewsDataExportSimpleExportTest {
 
   protected $profile = 'testing';

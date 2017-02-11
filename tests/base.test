@@ -14,9 +14,9 @@ abstract class ViewsDataExportBaseTest extends ViewsTestCase {
     parent::setUp($modules);
 
     // Define the schema and views data variable before enabling the test module.
-    variable_set('views_test_schema', $this->schemaDefinition());
-    variable_set('views_test_views_data', $this->viewsData());
-    variable_set('views_test_views_plugins', $this->viewsPlugins());
+    state_set('views_test_schema', $this->schemaDefinition());
+    state_set('views_test_views_data', $this->viewsData());
+    state_set('views_test_views_plugins', $this->viewsPlugins());
 
     module_enable(array('views_test'));
     $this->resetAll();
@@ -304,8 +304,8 @@ abstract class ViewsDataExportBaseTest extends ViewsTestCase {
   }
 
   public function assertBatchedExportEqual($path, $expected, $message) {
-    $this->drupalGet($path);
-    $output = $this->drupalGetContent();
+    $this->backdropGet($path);
+    $output = $this->backdropGetContent();
     $this->logViewResult($output);
     $this->logViewResult($expected, 'Expected result:<br>');
     $this->assertEqual($this->normaliseString($output), $this->normaliseString($expected), $message);
@@ -341,10 +341,10 @@ abstract class ViewsDataExportSimpleExportTest extends ViewsDataExportBaseTest {
     // Save this view so we can hit the path.
     $view->save();
     // Ensure that the menu router system is rebuilt on the next page load.
-    variable_set('menu_rebuild_needed', TRUE);
+    state_set('menu_rebuild_needed', TRUE);
 
-    $this->drupalGet($path);
-    $result = $this->drupalGetContent();
+    $this->backdropGet($path);
+    $result = $this->backdropGetContent();
 
     $this->assertExportEqual($result, $expected, 'Non batched ' . $this->vde_export_type . ' export matched expected output.');
   }
@@ -361,7 +361,7 @@ abstract class ViewsDataExportSimpleExportTest extends ViewsDataExportBaseTest {
     // Save this view so we can hit the path.
     $view->save();
     // Ensure that the menu router system is rebuilt on the next page load.
-    variable_set('menu_rebuild_needed', TRUE);
+    state_set('menu_rebuild_needed', TRUE);
 
     $this->assertBatchedExportEqual($path, $expected, 'Batched ' . $this->vde_export_type . ' export matched expected output.');
   }
@@ -493,10 +493,10 @@ abstract class ViewsDataExportSimpleExportTest extends ViewsDataExportBaseTest {
     $view->save();
 
     // Ensure that the menu router system is rebuilt on the next page load.
-    variable_set('menu_rebuild_needed', TRUE);
+    state_set('menu_rebuild_needed', TRUE);
 
-    $this->drupalGet($path);
-    $result = $this->drupalGetContent();
+    $this->backdropGet($path);
+    $result = $this->backdropGetContent();
 
     $this->assertExportEqual($result, $expected, $message);
   }

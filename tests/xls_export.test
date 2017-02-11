@@ -1,5 +1,7 @@
 <?php
 
+require_once 'base.test';
+
 class XLSExportViewsDataExportTests extends ViewsDataExportSimpleExportTest {
 
   protected $profile = 'testing';

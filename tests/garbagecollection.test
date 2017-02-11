@@ -1,5 +1,7 @@
 <?php
 
+require_once 'base.test';
+
 /**
  * Test class for garbage collection of VDE export data.
  */
@@ -28,7 +30,7 @@ class ViewsDataExportGarbageCollectionTest extends ViewsDataExportBaseTest {
     // Save this view so we can hit the path.
     $view->save();
     // Ensure that the menu router system is rebuilt on the next page load.
-    variable_set('menu_rebuild_needed', TRUE);
+    state_set('menu_rebuild_needed', TRUE);
     $exports = $this->getNumberOfStoredExports();
     $files = $this->getNumberOfFiles();
     $this->assertBatchedExportEqual($path, $expected, 'Batched access export matched expected output.');

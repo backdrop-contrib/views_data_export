@@ -1,5 +1,7 @@
 <?php
 
+require_once 'base.test';
+
 /**
  * Test class for access checks for VDE downloads.
  *
@@ -23,8 +25,8 @@ class ViewsDataExportAccessTest extends ViewsDataExportBaseTest {
    * Test that VDE export can only be downloaded by the user that created them.
    */
   public function testExportedTempFileAccess() {
-    $this->admin_user1 = $this->drupalCreateUser();
-    $this->admin_user2 = $this->drupalCreateUser();
+    $this->admin_user1 = $this->backdropCreateUser();
+    $this->admin_user2 = $this->backdropCreateUser();
 
     // Run a batched export.
     $path = 'vde_test/' . $this->randomName();
@@ -35,9 +37,9 @@ class ViewsDataExportAccessTest extends ViewsDataExportBaseTest {
     // Save this view so we can hit the path.
     $view->save();
     // Ensure that the menu router system is rebuilt on the next page load.
-    variable_set('menu_rebuild_needed', TRUE);
+    state_set('menu_rebuild_needed', TRUE);
 
-    $this->drupalLogin($this->admin_user1);
+    $this->backdropLogin($this->admin_user1);
     // Catpure the session_id as the redirects in the request ditch it.
     $session_id = $this->session_id;
     $this->assertBatchedExportEqual($path, $expected, 'Batched access export matched expected output.');
@@ -48,35 +50,35 @@ class ViewsDataExportAccessTest extends ViewsDataExportBaseTest {
 
     // Assert that we can re-download directly when supplying the token.
     // We rely on this being the first export in this test class.
-    // Restore the session_id from above so we can use drupalGetToken.
+    // Restore the session_id from above so we can use backdropGetToken.
     $this->session_id = $session_id;
-    $token = $this->drupalGetToken('views_data_export/1');
-    $this->drupalGet($path, array('query' => array('eid' => 1, 'download' => 1, 'token' => $token)));
-    $output = $this->drupalGetContent();
+    $token = $this->backdropGetToken('views_data_export/1');
+    $this->backdropGet($path, array('query' => array('eid' => 1, 'download' => 1, 'token' => $token)));
+    $output = $this->backdropGetContent();
     $this->assertEqual($this->normaliseString($output), $expected, 'Re-download of export file by original user is possible with session token.');
 
     // Assert that we cannot re-download directly without supplying the token.
     // We rely on this being the first export in this test class.
-    $this->drupalGet($path, array('query' => array('eid' => 1, 'download' => 1)));
-    $output = $this->drupalGetContent();
+    $this->backdropGet($path, array('query' => array('eid' => 1, 'download' => 1)));
+    $output = $this->backdropGetContent();
     $this->assertEqual($this->normaliseString($output), '', 'Re-download of export file by original user is not possible.');
 
     // Assert that someone else can't download our file.
     // We rely on this being the first export in this test class.
-    $this->drupalLogin($this->admin_user2);
-    $this->drupalGet($path, array('query' => array('eid' => 1, 'download' => 1, 'token' => $token)));
-    $output = $this->drupalGetContent();
+    $this->backdropLogin($this->admin_user2);
+    $this->backdropGet($path, array('query' => array('eid' => 1, 'download' => 1, 'token' => $token)));
+    $output = $this->backdropGetContent();
     $this->assertEqual($this->normaliseString($output), '', 'Re-download of export file by different user is not possible.');
   }
 
   /**
-   * Overrides DrupalWebTestCase::drupalGetToken() to support the hash salt.
+   * Overrides BackdropWebTestCase::backdropGetToken() to support the hash salt.
    *
-   * @todo Remove when http://drupal.org/node/1555862 is fixed in core.
+   * @todo Remove when http://backdrop.org/node/1555862 is fixed in core.
    */
-  protected function drupalGetToken($value = '') {
-    $private_key = drupal_get_private_key();
-    return drupal_hmac_base64($value, $this->session_id . $private_key . drupal_get_hash_salt());
+  protected function backdropGetToken($value = '') {
+    $private_key = backdrop_get_private_key();
+    return backdrop_hmac_base64($value, $this->session_id . $private_key . backdrop_get_hash_salt());
   }
 
   /**
