@@ -45,7 +45,7 @@ function theme_views_data_export_feed_icon($variables) {
   if ($query) {
     $url_options['query'] = $query;
   }
-  $image = theme('image', array('path' => $image_path, 'alt' => $text, 'title' => $text));
+  $image = theme('image', array('uri' => $image_path, 'alt' => $text, 'title' => $text));
   return l($image, $url, $url_options);
 }
 

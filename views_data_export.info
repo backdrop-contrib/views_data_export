@@ -3,6 +3,7 @@ description = "Plugin to export views data into various file formats"
 
 package = Views
 core = 7.x
+backdrop = 1.x
 
 dependencies[] = views
 

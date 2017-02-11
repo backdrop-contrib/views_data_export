@@ -27,10 +27,22 @@ function views_data_export_init() {
 function views_data_export_views_api() {
   return array(
     'api' => 2,
+    'path' => backdrop_get_path('module', 'views_data_export'),
   );
 }
 
 /**
+ * Register views handlers with the autoloader.
+ */
+function views_data_export_autoload_info() {
+  return array(
+    'views_data_export_plugin_display_export' => 'plugins/views_data_export_plugin_display_export.inc',
+    'views_data_export_plugin_style_export' => 'plugins/views_data_export_plugin_style_export.inc',
+    'views_data_export_plugin_style_export_csv' => 'plugins/views_data_export_plugin_style_export_csv.inc',
+    'views_data_export_plugin_style_export_xml' => 'plugins/views_data_export_plugin_style_export_xml.inc',
+  );
+}
+
 /**
  * Checks whether the passed URI identifies an export file.
  *
