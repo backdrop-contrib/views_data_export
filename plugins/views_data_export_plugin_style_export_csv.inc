@@ -100,8 +100,11 @@ class views_data_export_plugin_style_export_csv extends views_data_export_plugin
       '#type' => 'textfield',
       '#title' => t('Replacement'),
       '#default_value' => $this->options['newline_replacement'],
-      '#process' => array('ctools_dependent_process'),
-      '#dependency' => array('edit-style-options-replace-newlines' => array(TRUE)),
+      '#states' => array(
+        'visible' => array(
+          ':input[name="style_options[replace_newlines]"]' => array('checked' =>  TRUE),
+        ),
+      ),
     );
     $form['newline_token'] = array(
       '#prefix' => '<div><div id="edit-options-newline-token">',
@@ -113,7 +116,11 @@ class views_data_export_plugin_style_export_csv extends views_data_export_plugin
           t('Replace only Linefeed ("\n")'),
           t('Replace Carriage Return plus Linefeed ("\r\n") and single Linefeed ("\n") as well')
        ),
-       '#dependency' => array('edit-style-options-replace-newlines' => array(TRUE)),
+      '#states' => array(
+        'visible' => array(
+          ':input[name="style_options[replace_newlines]"]' => array('checked' =>  TRUE),
+        ),
+      ),
      );
     $form['header'] = array(
       '#type' => 'checkbox',

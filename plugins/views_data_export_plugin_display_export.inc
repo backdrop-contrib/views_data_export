@@ -124,9 +124,10 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
           '#description' => t('If each row of your export consumes a lot of memory to render, then reduce this value. Higher values will generally mean that the export completes in less time but will have a higher peak memory usage.'),
           '#options' => drupal_map_assoc(range(1, 500)),
           '#default_value' => $this->get_option('segment_size'),
-          '#process' => array('ctools_dependent_process'),
-          '#dependency' => array(
-            'radio:use_batch' => array('batch')
+          '#states' => array(
+            'visible' => array(
+              ':input[name="use_batch"]' => array('value' => 'batch'),
+            ),
           ),
         );
         $form['return_path'] = array(

@@ -67,9 +67,10 @@ class views_data_export_plugin_style_export extends views_plugin_style {
       '#title' => t('Filename'),
       '#default_value' => $this->options['filename'],
       '#description' => t('The filename that will be suggested to the browser for downloading purposes. You may include replacement patterns from the list below.'),
-      '#process' => array('ctools_dependent_process'),
-      '#dependency' => array(
-        'edit-style-options-provide-file' => array(TRUE),
+      '#states' => array(
+        'visible' => array(
+          ':input[name="style_options[provide_file]"]' => array('checked' =>  TRUE),
+        ),
       ),
     );
 
