@@ -159,7 +159,7 @@ function views_data_export_garbage_collect($expires = NULL, $chunk = NULL) {
 
         // 2. Delete the files used during the export.
         foreach (views_data_export_export_list_files($eid) as $file) {
-          file_delete($file, TRUE);
+          file_delete($file->fid);
         }
       }
 
