@@ -6,14 +6,6 @@ class TXTExportViewsDataExportTests extends ViewsDataExportSimpleExportTest {
 
   protected $profile = 'testing';
 
-  public static function getInfo() {
-    return array(
-      'name' => 'TXT Export',
-      'description' => 'Various tests for exporting to TXT.',
-      'group' => 'Views Data Export',
-    );
-  }
-
   protected $vde_export_type = 'TXT';
 
   protected function getStylePluginName() {

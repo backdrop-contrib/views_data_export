@@ -1,5 +1,7 @@
 <?php
 
+require_once BACKDROP_ROOT . '/core/modules/views/tests/views_query.test';
+
 abstract class ViewsDataExportBaseTest extends ViewsTestCase {
 
   protected function setUp() {

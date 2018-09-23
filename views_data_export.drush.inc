@@ -27,7 +27,7 @@ function views_data_export_drush_command() {
     'examples' => array (
       'drush views-data-export myviewname views_data_export_1 output.csv' => 'Export myviewname:views_data_export_1 and write the output to output.csv in the current directory',
     ),
-    'drupal dependencies' => array (
+    'backdrop dependencies' => array (
       'views_data_export',
     ),
     'core' => array('7'),
@@ -238,7 +238,7 @@ function views_data_export_views_data_export_batch_alter(&$batch, &$final_destin
 
   $options = $ok_to_override[$view_name][$display_id];
 
-  // We actually never return from the drupal_alter, but
+  // We actually never return from the backdrop_alter, but
   // use drush's batch system to run the same batch
 
   // Add a final callback

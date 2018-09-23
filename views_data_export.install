@@ -99,64 +99,6 @@ function views_data_export_uninstall() {
 }
 
 /**
- * Convert the data column in the object cache.
- */
-function views_data_export_update_7100() {
-  $new_field = array(
-    'type' => 'text',
-    'size' => 'big',
-    'description' => 'Serialized data being stored.',
-    'serialize' => TRUE,
-  );
-
-  // Drop and re-add this field because there is a bug in
-  // db_change_field that causes this to fail when trying to cast the data.
-  db_drop_field('views_data_export_object_cache', 'data');
-  db_add_field('views_data_export_object_cache', 'data', $new_field);
-}
-
-/**
- * Increase the length of the view_name field to match views_schema_7301().
- */
-function views_data_export_update_7300() {
-  $fields = array();
-
-  $fields['view_name'] = array(
-    'type' => 'varchar',
-    'length' => '128',
-    'default' => '',
-    'not null' => TRUE,
-    'description' => 'The unique name of the view. This is the primary field views are loaded from, and is used so that views may be internal and not necessarily in the database. May only be alphanumeric characters plus underscores.',
-  );
-
-  $fields['view_display_id'] = array(
-    'type' => 'varchar',
-    'length' => '64',
-    'default' => '',
-    'not null' => TRUE,
-    'description' => 'An identifier for this display; usually generated from the display_plugin, so should be something like page or page_1 or block_2, etc.',
-  );
-
-  // Apply the updates to the DB.
-  foreach ($fields as $field_name => $spec) {
-    db_change_field('views_data_export', $field_name, $field_name, $spec);
-  }
-}
-/**
- * Change the object cache table to support postgres installations
- */
-function views_data_export_update_7301(){
-  $spec = array(
-        'type' => 'blob',
-        'size' => 'big',
-        'description' => 'Serialized data being stored.',
-        'serialize' => TRUE,
-      );
-  db_change_field('views_data_export_object_cache', 'data', 'data', $spec);
-}
-
-
-/**
  * Implements hook_requirements().
  */
 function views_data_export_requirements($phase) {
@@ -174,7 +116,7 @@ function views_data_export_requirements($phase) {
         'value' => t('Exists'),
       );
 
-      $path = variable_get('views_data_export_directory', 'temporary://views_plugin_display');
+      $path = config_get('views_data_export.settings', 'views_data_export_directory');
       if (!file_prepare_directory($path, FILE_CREATE_DIRECTORY)) {
         $requirements['views_data_export_temp']['description'] = t('The Views Data Export temporary directory, %path could not be created due to a misconfigured directory. Please ensure that the temporary directory is correctly configured and that the webserver has permission to create directories.', array('%path' => file_uri_target($path)));
         $requirements['views_data_export_temp']['severity'] = REQUIREMENT_ERROR;
@@ -208,3 +150,38 @@ function views_data_export_requirements($phase) {
 
   return $requirements;
 }
+
+/**
+ * Implements hook_update_last_removed().
+ */
+function views_data_export_update_last_removed() {
+  return 7301;
+}
+
+/**
+ * @defgroup updates-7.x-to-1.x Updates from 7.x to 1.x
+ * @{
+ * Update functions from Drupal 7.x to Backdrop CMS 1.x.
+ */
+
+ /**
+  * Moves views_data_export settings from variables to config.
+  */
+ function views_data_export_update_1000() {
+   // Migrate variables to config.
+   $config = config('views_data_export.settings');
+   $config->set('views_data_export_gc_expires', update_variable_get('views_data_export_gc_expires', BACKDROP_MAXIMUM_TEMP_FILE_AGE));
+   $config->set('views_data_export_directory', update_variable_get('views_data_export_directory', 'temporary://views_plugin_display'));
+   $config->set('views_data_export_gc_chunk', update_variable_get('views_data_export_gc_chunk', 30));
+   $config->save();
+
+   // Delete variables.
+   update_variable_del('views_data_export_gc_expires');
+   update_variable_del('views_data_export_directory');
+   update_variable_del('views_data_export_gc_chunk');
+ }
+
+ /*
+  * @} End of "defgroup updates-7.x-to-1.x"
+  * The next series of updates should start at 2000.
+  */

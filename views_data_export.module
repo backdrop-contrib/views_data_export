@@ -32,6 +32,17 @@ function views_data_export_views_api() {
 }
 
 /**
+* Implements hook_config_info().
+*/
+function views_data_export_config_info() {
+  $prefixes['views_data_export.settings'] = array(
+    'label' => t('Views Data Export'),
+    'group' => t('Configuration'),
+  );
+  return $prefixes;
+}
+
+/**
  * Register views handlers with the autoloader.
  */
 function views_data_export_autoload_info() {
@@ -125,11 +136,12 @@ function views_data_export_cron() {
  */
 function views_data_export_garbage_collect($expires = NULL, $chunk = NULL) {
   if (lock_acquire('views_data_export_gc')) {
+    $config = config('views_data_export.settings');
     if (!isset($expires)) {
-      $expires = variable_get('views_data_export_gc_expires', DRUPAL_MAXIMUM_TEMP_FILE_AGE);
+      $expires = $config->get('views_data_export_gc_expires');
     }
     if (!isset($chunk)) {
-      $chunk = variable_get('views_data_export_gc_chunk', 30);
+      $chunk = $config->get('views_data_export_gc_chunk');
     }
 
     if ($chunk == -1) {
@@ -247,7 +259,7 @@ function views_data_export_new($view_name, $view_display_id, $file) {
     'batch_state' => VIEWS_DATA_EXPORT_HEADER,
     'sandbox' => array(),
   );
-  drupal_write_record('views_data_export', $record);
+  backdrop_write_record('views_data_export', $record);
   return $record;
 }
 
@@ -256,9 +268,9 @@ function views_data_export_new($view_name, $view_display_id, $file) {
  * Update an export row in the database
  */
 function views_data_export_update($state) {
-  // Note, drupal_write_record handles serializing
+  // Note, backdrop_write_record handles serializing
   // the sandbox field as per our schema definition
-  drupal_write_record('views_data_export', $state, 'eid');
+  backdrop_write_record('views_data_export', $state, 'eid');
 }
 
 
@@ -298,7 +310,7 @@ function views_data_export_view_store($export_id, $view) {
     'data' => $_view,
     'updated' => REQUEST_TIME,
   );
-  drupal_write_record('views_data_export_object_cache', $record);
+  backdrop_write_record('views_data_export_object_cache', $record);
 }
 
 /**

@@ -1,0 +1,6 @@
+{
+    "_config_name": "views_data_export.settings",
+    "views_data_export_directory": "temporary://views_plugin_display",
+    "views_data_export_gc_chunk": 30,
+    "views_data_export_gc_expires": 21600
+}
