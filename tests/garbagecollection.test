@@ -9,14 +9,6 @@ class ViewsDataExportGarbageCollectionTest extends ViewsDataExportBaseTest {
 
   protected $profile = 'testing';
 
-  public static function getInfo() {
-    return array(
-      'name' => 'Garbage collection',
-      'description' => 'Checks garbage collection of batched exports',
-      'group' => 'Views Data Export',
-    );
-  }
-
   /**
    * Test that VDE export can only be downloaded by the user that created them.
    */

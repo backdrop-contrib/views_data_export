@@ -13,14 +13,6 @@ class ViewsDataExportAccessTest extends ViewsDataExportBaseTest {
 
   protected $profile = 'testing';
 
-  public static function getInfo() {
-    return array(
-      'name' => 'Access to temp files',
-      'description' => 'Check access to created export files.',
-      'group' => 'Views Data Export',
-    );
-  }
-
   /**
    * Test that VDE export can only be downloaded by the user that created them.
    */

@@ -6,14 +6,6 @@ class CSVExportViewsDataExportTests extends ViewsDataExportSimpleExportTest {
 
   protected $profile = 'testing';
 
-  public static function getInfo() {
-    return array(
-      'name' => 'CSV Export',
-      'description' => 'Various tests for exporting to CSV.',
-      'group' => 'Views Data Export',
-    );
-  }
-
   protected $vde_export_type = 'CSV';
 
   protected function getStylePluginName() {
