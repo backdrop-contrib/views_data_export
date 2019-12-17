@@ -742,7 +742,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
 
   /**
    * Called on export initialization
-   * Creates the output file, registers it as a temporary file with Drupal
+   * Creates the output file, registers it as a temporary file with Backdrop
    * and returns the fid
    */
   protected function outputfile_create() {
