@@ -196,7 +196,7 @@ function views_data_export_requirements($phase) {
               $requirements['views_data_export'] = array(
                 'title' => $t('MySQL - max allowed packet'),
                 'value' => format_size($max_allowed_packet),
-                'description' => $t("Your MySQL 'max_allowed_packet' setting may be too low for Views data export to function correctly, Drupal's requirements recommend setting it to at least 16M. See: !link", array('!link' => l('http://drupal.org/requirements', 'http://drupal.org/requirements'))),
+                'description' => $t("Your MySQL 'max_allowed_packet' setting may be too low for Views data export to function correctly, Backdrop's requirements recommend setting it to at least 16M. See: !link", array('!link' => l('https://backdropcms.org/requirements', 'https://backdropcms.org/requirements'))),
                 'severity' => REQUIREMENT_WARNING,
               );
             }

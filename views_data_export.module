@@ -247,7 +247,7 @@ function views_data_export_new($view_name, $view_display_id, $file) {
     'batch_state' => VIEWS_DATA_EXPORT_HEADER,
     'sandbox' => array(),
   );
-  drupal_write_record('views_data_export', $record);
+  backdrop_write_record('views_data_export', $record);
   return $record;
 }
 
@@ -256,9 +256,9 @@ function views_data_export_new($view_name, $view_display_id, $file) {
  * Update an export row in the database
  */
 function views_data_export_update($state) {
-  // Note, drupal_write_record handles serializing
+  // Note, backdrop_write_record handles serializing
   // the sandbox field as per our schema definition
-  drupal_write_record('views_data_export', $state, 'eid');
+  backdrop_write_record('views_data_export', $state, 'eid');
 }
 
 
@@ -298,7 +298,7 @@ function views_data_export_view_store($export_id, $view) {
     'data' => $_view,
     'updated' => REQUEST_TIME,
   );
-  drupal_write_record('views_data_export_object_cache', $record);
+  backdrop_write_record('views_data_export_object_cache', $record);
 }
 
 /**
