@@ -746,8 +746,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
    * and returns the fid
    */
   protected function outputfile_create() {
-
-    $dir = variable_get('views_data_export_directory', 'temporary://views_plugin_display');
+    $dir = config_get('views_data_export.settings', 'directory');
 
     // Make sure the directory exists first.
     if (!file_prepare_directory($dir, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS)) {
