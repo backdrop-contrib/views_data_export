@@ -6,14 +6,6 @@ class XLSExportViewsDataExportTests extends ViewsDataExportSimpleExportTest {
 
   protected $profile = 'testing';
 
-  public static function getInfo() {
-    return array(
-      'name' => 'XLS Export',
-      'description' => 'Various tests for exporting to XLS.',
-      'group' => 'Views Data Export',
-    );
-  }
-
   protected $vde_export_type = 'XLS';
 
   protected function getStylePluginName() {

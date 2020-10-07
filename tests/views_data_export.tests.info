@@ -2,40 +2,40 @@
 name = Access to temp files
 description = Check access to created export files.
 group = Views Data Export
-file = tests/access.test
+file = access.test
 
 [ViewsDataExportGarbageCollectionTest]
 name = Garbage collection
 description = Checks garbage collection of batched exports.
 group = Views Data Export
-file = tests/garbagecollection.test
+file = garbagecollection.test
 
 [CSVExportViewsDataExportTests]
 name = CSV Export
 description = Various tests for exporting to CSV.
 group = Views Data Export
-file = tests/csv_export.test
+file = csv_export.test
 
 [DOCExportViewsDataExportTests]
 name = DOC Export
 description = Various tests for exporting to DOC.
 group = Views Data Export
-file = tests/doc_export.test
+file = doc_export.test
 
 [TXTExportViewsDataExportTests]
 name = TXT Export
 description = Various tests for exporting to TXT.
 group = Views Data Export
-file = tests/txt_export.test
+file = txt_export.test
 
 [XLSExportViewsDataExportTests]
 name = XLS Export
 description = Various tests for exporting to XLS.
 group = Views Data Export
-file = tests/xls_export.test
+file = xls_export.test
 
 [XMLExportViewsDataExportTests]
 name = XML Export
 description = Various tests for exporting to XML.
 group = Views Data Export
-file = tests/xml_export.test
+file = xml_export.test

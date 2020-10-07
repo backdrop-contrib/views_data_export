@@ -6,14 +6,6 @@ class DOCExportViewsDataExportTests extends ViewsDataExportSimpleExportTest {
 
   protected $profile = 'testing';
 
-  public static function getInfo() {
-    return array(
-      'name' => 'DOC Export',
-      'description' => 'Various tests for exporting to DOC.',
-      'group' => 'Views Data Export',
-    );
-  }
-
   protected $vde_export_type = 'DOC';
 
   protected function getStylePluginName() {

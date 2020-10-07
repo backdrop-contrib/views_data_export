@@ -6,14 +6,6 @@ class XMLExportViewsDataExportTests extends ViewsDataExportSimpleExportTest {
 
   protected $profile = 'testing';
 
-  public static function getInfo() {
-    return array(
-      'name' => 'XML Export',
-      'description' => 'Various tests for exporting to XML.',
-      'group' => 'Views Data Export',
-    );
-  }
-
   protected $vde_export_type = 'XML';
 
   protected function getStylePluginName() {
