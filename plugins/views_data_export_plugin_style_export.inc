@@ -297,11 +297,11 @@ class views_data_export_plugin_style_export extends views_plugin_style {
    */
   function add_http_headers() {
 
-    drupal_add_http_header('Cache-Control', 'max-age=60, must-revalidate');
+    backdrop_add_http_header('Cache-Control', 'max-age=60, must-revalidate');
 
     if (!empty($this->definition['export headers'])) {
       foreach ($this->definition['export headers'] as $name => $value) {
-        drupal_add_http_header($name, $value);
+        backdrop_add_http_header($name, $value);
       }
     }
 
@@ -309,7 +309,7 @@ class views_data_export_plugin_style_export extends views_plugin_style {
       $filename = $this->generate_filename();
 
       if ($filename) {
-        drupal_add_http_header('Content-Disposition', 'attachment; filename="'. $filename .'"');
+        backdrop_add_http_header('Content-Disposition', 'attachment; filename="'. $filename .'"');
       }
     }
   }

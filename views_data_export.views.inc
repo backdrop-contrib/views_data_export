@@ -8,7 +8,7 @@
  * Implementation of hook_views_plugins().
  */
 function views_data_export_views_plugins() {
-  $path = drupal_get_path('module', 'views_data_export');
+  $path = backdrop_get_path('module', 'views_data_export');
 
   $style_defaults = array(
     'path' => $path . '/plugins',
@@ -59,7 +59,7 @@ function views_data_export_views_plugins() {
         'export feed type' => 'csv',
         'export feed text' => 'CSV',
         'export feed file' => '%view.csv',
-        'export feed icon' => drupal_get_path('module', 'views_data_export') . '/images/csv.png',
+        'export feed icon' => backdrop_get_path('module', 'views_data_export') . '/images/csv.png',
         'additional themes' => array(
           'views_data_export_csv_header' => 'style',
           'views_data_export_csv_body' => 'style',
@@ -75,7 +75,7 @@ function views_data_export_views_plugins() {
         'export feed type' => 'doc',
         'export feed text' => 'Word Document',
         'export feed file' => '%view.doc',
-        'export feed icon' => drupal_get_path('module', 'views_data_export') . '/images/doc.png',
+        'export feed icon' => backdrop_get_path('module', 'views_data_export') . '/images/doc.png',
         'additional themes' => array(
           'views_data_export_doc_header' => 'style',
           'views_data_export_doc_body' => 'style',
@@ -91,7 +91,7 @@ function views_data_export_views_plugins() {
         'export feed type' => 'txt',
         'export feed text' => 'Plain Text Document',
         'export feed file' => '%view.txt',
-        'export feed icon' => drupal_get_path('module', 'views_data_export') . '/images/txt.png',
+        'export feed icon' => backdrop_get_path('module', 'views_data_export') . '/images/txt.png',
         'additional themes' => array(
           'views_data_export_txt_header' => 'style',
           'views_data_export_txt_body' => 'style',
@@ -107,7 +107,7 @@ function views_data_export_views_plugins() {
         'export feed type' => 'xls',
         'export feed text' => 'XLS',
         'export feed file' => '%view.xls',
-        'export feed icon' => drupal_get_path('module', 'views_data_export') . '/images/xls.png',
+        'export feed icon' => backdrop_get_path('module', 'views_data_export') . '/images/xls.png',
         'additional themes' => array(
           'views_data_export_xls_header' => 'style',
           'views_data_export_xls_body' => 'style',
@@ -123,7 +123,7 @@ function views_data_export_views_plugins() {
         'export feed type' => 'xml',
         'export feed text' => 'XML',
         'export feed file' => '%view.xml',
-        'export feed icon' => drupal_get_path('module', 'views_data_export') . '/images/xml.png',
+        'export feed icon' => backdrop_get_path('module', 'views_data_export') . '/images/xml.png',
         'additional themes' => array(
           'views_data_export_xml_header' => 'style',
           'views_data_export_xml_body' => 'style',

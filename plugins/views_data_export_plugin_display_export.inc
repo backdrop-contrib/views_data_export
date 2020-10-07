@@ -122,7 +122,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
           '#type' => 'select',
           '#title' => t('Segment size'),
           '#description' => t('If each row of your export consumes a lot of memory to render, then reduce this value. Higher values will generally mean that the export completes in less time but will have a higher peak memory usage.'),
-          '#options' => drupal_map_assoc(range(1, 500)),
+          '#options' => backdrop_map_assoc(range(1, 500)),
           '#default_value' => $this->get_option('segment_size'),
           '#states' => array(
             'visible' => array(
@@ -240,7 +240,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
 
     // Try and get a batch context if possible.
 
-    if (!empty($_GET['eid']) && !empty($_GET['token']) && drupal_valid_token($_GET['token'], 'views_data_export/' . $_GET['eid'])) {
+    if (!empty($_GET['eid']) && !empty($_GET['token']) && backdrop_valid_token($_GET['token'], 'views_data_export/' . $_GET['eid'])) {
       $eid = $_GET['eid'];
     }
     elseif (!empty($this->batched_execution_state->eid)) {
@@ -325,7 +325,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
     // Build up our querystring for the final page callback.
     $querystring = array(
       'eid' => $this->batched_execution_state->eid,
-      'token' => drupal_get_token('views_data_export/' . $this->batched_execution_state->eid),
+      'token' => backdrop_get_token('views_data_export/' . $this->batched_execution_state->eid),
       'return-url' => NULL,
     );
 
@@ -363,7 +363,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
     $batch['display_id'] = $this->view->current_display;
     $batch['eid'] = $this->batched_execution_state->eid;
     $batch_redirect = array($final_destination, array('query' => $querystring));
-    drupal_alter('views_data_export_batch', $batch, $batch_redirect);
+    backdrop_alter('views_data_export_batch', $batch, $batch_redirect);
 
     // Modules may have cleared out $batch, indicating that we shouldn't process further.
     if (!empty($batch)) {
@@ -566,7 +566,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
     $query = array(
       'download' => 1,
       'eid' => $this->batched_execution_state->eid,
-      'token' => drupal_get_token('views_data_export/' . $this->batched_execution_state->eid),
+      'token' => backdrop_get_token('views_data_export/' . $this->batched_execution_state->eid),
     );
 
     return theme('views_data_export_complete_page', array(
@@ -742,7 +742,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
 
   /**
    * Called on export initialization
-   * Creates the output file, registers it as a temporary file with Drupal
+   * Creates the output file, registers it as a temporary file with Backdrop
    * and returns the fid
    */
   protected function outputfile_create() {
@@ -754,7 +754,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
       $this->abort_export(t('Could not create temporary directory for result export (@dir). Check permissions.', array ('@dir' => $dir)));
     }
 
-    $path = drupal_tempnam($dir, 'views_data_export');
+    $path = backdrop_tempnam($dir, 'views_data_export');
 
     // Save the file into the DB.
     $file = $this->file_save_file($path);
@@ -793,7 +793,7 @@ class views_data_export_plugin_display_export extends views_plugin_display_feed 
       $errors = array($errors);
     }
     foreach ($errors as $error) {
-      drupal_set_message($error . ' ['. t('Export Aborted') . ']', 'error');
+      backdrop_set_message($error . ' ['. t('Export Aborted') . ']', 'error');
     }
     $this->batched_execution_state->batch_state = VIEWS_DATA_EXPORT_FINISHED;
   }
