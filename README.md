@@ -48,6 +48,7 @@ Current Maintainers
 -------------------
 
 - John Franklin (https://github.com/jlfranklin)
+- [argiepiano](https://github.com/argiepiano)
 
 Credits
 -------
